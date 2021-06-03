@@ -1,0 +1,10 @@
+.done {
+    text-decoration: line-through;
+    color: salmon;
+}
+
+.todoItemContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

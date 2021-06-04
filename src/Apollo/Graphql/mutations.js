@@ -15,3 +15,13 @@ export const ADD_TOTO = gql`
         }
     }
 `;
+
+export const UPDATE_TODO = gql`
+    mutation UpdateTodo($_id: ID!, $title: String, $status: Boolean) {
+        updateTodo(_id: $_id, title: $title, status: $status) {
+            _id
+            title
+            status
+        }
+    }
+`;

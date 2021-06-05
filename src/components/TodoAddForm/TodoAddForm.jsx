@@ -5,7 +5,7 @@ import { GET_TODOS } from '../../Apollo/Graphql/queries';
 
 export const TodoAddForm = () => {
     const [title, setTitle] = useState('');
-    const [addTodo, { data, loading, error }] = useMutation(ADD_TOTO, {
+    const [addTodo] = useMutation(ADD_TOTO, {
         onError(error) {
             console.log('ADD TODO ERROR: ', error);
         },

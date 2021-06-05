@@ -8,7 +8,7 @@ export default function TodoItem({ todo }) {
     const [isEdit, setIsEdit] = useState(false);
     const [title, setTitle] = useState('');
     const [status, setStatus] = useState(false);
-    const [deleteTodo, { data, error, loading }] = useMutation(DELETE_TODO, {
+    const [deleteTodo] = useMutation(DELETE_TODO, {
         onError(error) {
             console.log('DELETE TOTO ERROR: ', error);
         },
@@ -55,9 +55,7 @@ export default function TodoItem({ todo }) {
     useEffect(() => {
         setTitle(todo.title);
         setStatus(todo.status);
-    }, []);
-
-    console.log('DATA AFTER DELETE: ', data);
+    }, [todo]);
 
     return (
         <div className="todoItemContainer">

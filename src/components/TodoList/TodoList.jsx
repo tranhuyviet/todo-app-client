@@ -10,7 +10,7 @@ export default function TodoList() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error {error.message}</p>;
     if (!data) return <p>Can not get todo</p>;
-    console.log(data);
+    // console.log(data);
     return (
         <div className="todoList">
             <div className="todoListContainer">

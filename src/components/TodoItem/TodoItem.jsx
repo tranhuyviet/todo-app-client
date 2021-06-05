@@ -12,6 +12,13 @@ export default function TodoItem({ todo }) {
         onError(error) {
             console.log('DELETE TOTO ERROR: ', error);
         },
+        update(cache, result) {
+            cache.modify({
+                fields: {
+                    getTodos() {},
+                },
+            });
+        },
     });
 
     const [updateTodo] = useMutation(UPDATE_TODO);
@@ -19,23 +26,23 @@ export default function TodoItem({ todo }) {
     const handleDeleteTodo = (_id) => {
         deleteTodo({
             variables: { _id: _id },
-            update(cache, result) {
-                // get todos in cache
-                const todosInCache = cache.readQuery({
-                    query: GET_TODOS,
-                });
+            // update(cache, result) {
+            //     // get todos in cache
+            //     const todosInCache = cache.readQuery({
+            //         query: GET_TODOS,
+            //     });
 
-                // update todos in cache
-                const updateTodos = todosInCache.getTodos.filter(
-                    (todo) => todo._id !== _id
-                );
-                cache.writeQuery({
-                    query: GET_TODOS,
-                    data: { getTodos: updateTodos },
-                });
-                // console.log('update todo after delete', updateTodos);
-                // console.log('result', result);
-            },
+            //     // update todos in cache
+            //     const updateTodos = todosInCache.getTodos.filter(
+            //         (todo) => todo._id !== _id
+            //     );
+            //     cache.writeQuery({
+            //         query: GET_TODOS,
+            //         data: { getTodos: updateTodos },
+            //     });
+            //     // console.log('update todo after delete', updateTodos);
+            //     // console.log('result', result);
+            // },
         });
         console.log('DELETE: ', _id);
     };

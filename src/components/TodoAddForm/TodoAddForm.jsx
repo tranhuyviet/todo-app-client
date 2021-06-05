@@ -10,27 +10,38 @@ export const TodoAddForm = () => {
             console.log('ADD TODO ERROR: ', error);
         },
         update(cache, result) {
-            try {
-                // get todos in cache
-                const todosInCache = cache.readQuery({
-                    query: GET_TODOS,
-                });
+            // way 1: use read and write query
+            // try {
+            //     // get todos in cache
+            //     const todosInCache = cache.readQuery({
+            //         query: GET_TODOS,
+            //     });
 
-                console.log(todosInCache);
-                console.log(result.data);
-                // update new todo to cache
-                cache.writeQuery({
-                    query: GET_TODOS,
-                    data: {
-                        getTodos: [
-                            ...todosInCache.getTodos,
-                            result.data.addTodo,
-                        ],
-                    },
-                });
-            } catch (error) {
-                console.log(error);
-            }
+            //     console.log(todosInCache);
+            //     console.log(result.data);
+            //     // update new todo to cache
+            //     cache.writeQuery({
+            //         query: GET_TODOS,
+            //         data: {
+            //             getTodos: [
+            //                 ...todosInCache.getTodos,
+            //                 result.data.addTodo,
+            //             ],
+            //         },
+            //     });
+            // } catch (error) {
+            //     console.log(error);
+            // }
+
+            // way 2: use cache modify
+            cache.modify({
+                fields: {
+                    getTodos() {},
+                    // getTodos(existingTodos = []) {
+                    //     console.log('Existing todos:', existingTodos);
+                    // },
+                },
+            });
         },
     });
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './TodoItem.css';
 import { useMutation } from '@apollo/client';
 import { DELETE_TODO, UPDATE_TODO } from '../../Apollo/Graphql/mutations';
-import { GET_TODOS } from '../../Apollo/Graphql/queries';
+// import { GET_TODOS } from '../../Apollo/Graphql/queries';
 
 export default function TodoItem({ todo }) {
     const [isEdit, setIsEdit] = useState(false);

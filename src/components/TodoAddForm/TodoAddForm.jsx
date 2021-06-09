@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_TOTO } from '../../Apollo/Graphql/mutations';
-import { GET_TODOS } from '../../Apollo/Graphql/queries';
+// import { GET_TODOS } from '../../Apollo/Graphql/queries';
 
 export const TodoAddForm = () => {
     const [title, setTitle] = useState('');

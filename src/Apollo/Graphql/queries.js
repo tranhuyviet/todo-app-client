@@ -1,11 +1,15 @@
-import {gql} from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const GET_TODOS = gql`
-    query GetTodos {
-        getTodos {
-            _id
-            title
-            status
+    query GetTodos($offset: Int, $limit: Int) {
+        getTodos(offset: $offset, limit: $limit) {
+            total
+            hasMore
+            todos {
+                _id
+                title
+                status
+            }
         }
     }
-`
+`;

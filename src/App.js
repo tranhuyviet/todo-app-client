@@ -1,15 +1,26 @@
 import './App.css';
-import { TodoAddForm } from './components/TodoAddForm/TodoAddForm';
-import TodoList from './components/TodoList/TodoList';
+import { Header } from './components/Header/Header';
+
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+import HomePage from './pages/HomePage/HomePage';
+import LoginPage from './pages/LoginPage/LoginPage';
 
 function App() {
     return (
-        <div style={{ textAlign: 'center' }}>
-            <h1>Todo App</h1>
-            <TodoList />
-            <br />
-            <TodoAddForm />
-        </div>
+        <BrowserRouter>
+            <Header />
+            <div style={{ marginTop: 64, padding: 20, textAlign: 'center' }}>
+                <Switch>
+                    <Route exact path="/">
+                        <HomePage />
+                    </Route>
+                    <Route exact path="/login">
+                        <LoginPage />
+                    </Route>
+                </Switch>
+            </div>
+        </BrowserRouter>
     );
 }
 

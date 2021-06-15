@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloProvider, createHttpLink, gql } from '@apollo/client';
+import { ApolloClient, ApolloProvider, createHttpLink } from '@apollo/client';
 import App from '../App';
 import { cache } from './cache';
 import typeDefs from './Graphql/typeDefs';

@@ -14,9 +14,19 @@ export const GET_TODOS = gql`
     }
 `;
 
-export const IS_LOGGED_IN = gql`
-    query IsUserLoggedIn {
-        isLoggedIn @client
+// export const IS_LOGGED_IN = gql`
+//     query IsUserLoggedIn {
+//         isLoggedIn @client
+//     }
+// `;
+
+export const LOGGIN = gql`
+    query Login($email: String!, $password: String) {
+        login(email: $email, password: $password) {
+            _id
+            email
+            token
+        }
     }
 `;
 

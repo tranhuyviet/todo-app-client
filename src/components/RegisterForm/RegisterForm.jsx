@@ -6,7 +6,7 @@ import { registerSchema } from '../../utils/validateSchema';
 
 import { useMutation } from '@apollo/client';
 import { REGISTER } from '../../Apollo/Graphql/mutations';
-import { isLoggedInVar, setUserLoggedIn } from '../../Apollo/cache';
+import { setUserLoggedIn } from '../../Apollo/cache';
 
 import jwtDecode from 'jwt-decode';
 
@@ -19,7 +19,7 @@ const RegisterForm = () => {
         resolver: yupResolver(registerSchema),
     });
 
-    const [registerUser, { data, loading, error: errorMutation }] = useMutation(REGISTER, {
+    const [registerUser, { loading, error: errorMutation }] = useMutation(REGISTER, {
         onError(error) {
             const errorFromServer = error.graphQLErrors[0].extensions.exception.errors;
             console.log('ERROR ON ERROR', errorFromServer);
@@ -29,7 +29,7 @@ const RegisterForm = () => {
         onCompleted(result) {
             if (result.register) {
                 localStorage.setItem('todo-app-token', result.register.token);
-                isLoggedInVar(true);
+                // isLoggedInVar(true);
                 setUserLoggedIn(jwtDecode(result.register.token));
                 console.log('DECODE TOKEN', jwtDecode(result.register.token));
             }

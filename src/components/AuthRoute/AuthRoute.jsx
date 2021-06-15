@@ -7,7 +7,7 @@ const AuthRoute = (props) => {
     const {
         data: { userLoggedIn },
     } = useQuery(USER_LOGGED_IN);
-    console.log(userLoggedIn);
+
     if (props.auth && !userLoggedIn) {
         return <Redirect to="/login" />;
     } else if (props.notAuth && userLoggedIn) {

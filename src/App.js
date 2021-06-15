@@ -1,7 +1,7 @@
 import './App.css';
 import { Header } from './components/Header/Header';
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -14,8 +14,8 @@ function App() {
             <Header />
             <div style={{ marginTop: 64, padding: 20, textAlign: 'center' }}>
                 <Switch>
-                    <AuthRoute path="/login" component={LoginPage} />
-                    <AuthRoute path="/register" component={RegisterPage} />
+                    <AuthRoute path="/login" notAuth component={LoginPage} />
+                    <AuthRoute path="/register" notAuth component={RegisterPage} />
                     <AuthRoute exact path="/" auth component={HomePage} />
                 </Switch>
             </div>

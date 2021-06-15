@@ -1,8 +1,13 @@
 import React from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, CircularProgress, Typography } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../utils/validateSchema';
+import { LOGGIN } from '../../Apollo/Graphql/queries';
+import { useLazyQuery } from '@apollo/client';
+
+import jwtDecode from 'jwt-decode';
+import { setUserLoggedIn } from '../../Apollo/cache';
 
 const LoginForm = () => {
     const {
@@ -13,11 +18,27 @@ const LoginForm = () => {
         resolver: yupResolver(loginSchema),
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
-    };
+    const [loginQuery, { loading }] = useLazyQuery(LOGGIN, {
+        onError(error) {
+            const errorFromServer = error.graphQLErrors[0].extensions.exception.errors;
+            console.log('ERROR ON ERROR', errorFromServer);
+            Object.assign(errors, errorFromServer);
+            console.log(errors);
+        },
+        onCompleted(result) {
+            console.log('RESULT LOGIN', result);
+            // if login success
+            if (result.login) {
+                localStorage.setItem('todo-app-token', result.login.token);
+                // isLoggedInVar(true);
+                setUserLoggedIn(jwtDecode(result.login.token));
+            }
+        },
+    });
 
-    // console.log('error', errors);
+    const onSubmit = (dataInput) => {
+        loginQuery({ variables: dataInput });
+    };
 
     return (
         <form
@@ -45,12 +66,20 @@ const LoginForm = () => {
                 name="password"
                 {...register('password')}
                 error={!!errors.password}
-                helperText={
-                    errors && errors.password && errors.password.message
-                }
+                helperText={errors && errors.password && errors.password.message}
             />
+            {errors.global && (
+                <>
+                    <br />
+                    <Typography variant="body1" color="secondary">
+                        {errors.global}
+                    </Typography>
+                </>
+            )}
             <br />
-            <Button variant="contained" color="primary" type="submit">
+            <Button variant="contained" color="primary" type="submit" disabled={loading}>
+                {loading && <CircularProgress color="inherit" size={24} />}
+                <span style={{ marginRight: 10 }}> </span>
                 Login
             </Button>
         </form>

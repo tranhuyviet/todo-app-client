@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useQuery, useApolloClient } from '@apollo/client';
-import { IS_LOGGED_IN, USER_LOGGED_IN } from '../../Apollo/Graphql/queries';
+import { USER_LOGGED_IN } from '../../Apollo/Graphql/queries';
 import { setUserLoggedIn } from '../../Apollo/cache';
 
 export const Header = () => {
@@ -14,7 +14,7 @@ export const Header = () => {
         data: { userLoggedIn },
     } = useQuery(USER_LOGGED_IN);
 
-    console.log('UserLoggedIn', userLoggedIn);
+    console.log('User Logged In:', userLoggedIn);
 
     const logout = () => {
         client.cache.evict({ fieldName: 'me' });

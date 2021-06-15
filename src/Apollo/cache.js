@@ -5,11 +5,11 @@ export const cache = new InMemoryCache({
     typePolicies: {
         Query: {
             fields: {
-                isLoggedIn: {
-                    read() {
-                        return isLoggedInVar();
-                    },
-                },
+                // isLoggedIn: {
+                //     read() {
+                //         return isLoggedInVar();
+                //     },
+                // },
                 userLoggedIn: {
                     read() {
                         return setUserLoggedIn();
@@ -41,7 +41,7 @@ export const cache = new InMemoryCache({
 });
 
 // is logged in
-export const isLoggedInVar = makeVar(!!localStorage.getItem('todo-app-token'));
+// export const isLoggedInVar = makeVar(!!localStorage.getItem('todo-app-token'));
 
 // user is logged in
 let initialUserLoggedIn = null;

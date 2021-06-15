@@ -1,5 +1,25 @@
 import { gql } from '@apollo/client';
 
+// USER
+export const REGISTER = gql`
+    mutation Register(
+        $email: String!
+        $password: String!
+        $confirmPassword: String!
+    ) {
+        register(
+            email: $email
+            password: $password
+            confirmPassword: $confirmPassword
+        ) {
+            _id
+            email
+            token
+        }
+    }
+`;
+
+// TODO
 export const DELETE_TODO = gql`
     mutation deleteTodo($_id: ID!) {
         deleteTodo(_id: $_id)

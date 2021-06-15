@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
+import AuthRoute from './components/AuthRoute/AuthRoute';
 
 function App() {
     return (
@@ -12,12 +14,9 @@ function App() {
             <Header />
             <div style={{ marginTop: 64, padding: 20, textAlign: 'center' }}>
                 <Switch>
-                    <Route exact path="/">
-                        <HomePage />
-                    </Route>
-                    <Route exact path="/login">
-                        <LoginPage />
-                    </Route>
+                    <AuthRoute path="/login" component={LoginPage} />
+                    <AuthRoute path="/register" component={RegisterPage} />
+                    <AuthRoute exact path="/" auth component={HomePage} />
                 </Switch>
             </div>
         </BrowserRouter>

@@ -13,3 +13,15 @@ export const GET_TODOS = gql`
         }
     }
 `;
+
+export const IS_LOGGED_IN = gql`
+    query IsUserLoggedIn {
+        isLoggedIn @client
+    }
+`;
+
+export const USER_LOGGED_IN = gql`
+    query UserLoggedIn {
+        userLoggedIn @client
+    }
+`;

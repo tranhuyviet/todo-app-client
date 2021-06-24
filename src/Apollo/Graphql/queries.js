@@ -14,6 +14,16 @@ export const GET_TODOS = gql`
     }
 `;
 
+export const GET_TODO = gql`
+    query GetTodo($_id: ID!) {
+        getTodo(_id: $_id) {
+            _id
+            title
+            status
+        }
+    }
+`;
+
 // export const IS_LOGGED_IN = gql`
 //     query IsUserLoggedIn {
 //         isLoggedIn @client

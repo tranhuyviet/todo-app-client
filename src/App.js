@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import AuthRoute from './components/AuthRoute/AuthRoute';
+import CartPage from './pages/CartPage/CartPage';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <AuthRoute path="/login" notAuth component={LoginPage} />
                     <AuthRoute path="/register" notAuth component={RegisterPage} />
                     <AuthRoute exact path="/" auth component={HomePage} />
+                    <AuthRoute exact path="/cart" auth component={CartPage} />
                 </Switch>
             </div>
         </BrowserRouter>

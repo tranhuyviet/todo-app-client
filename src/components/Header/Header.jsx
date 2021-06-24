@@ -16,11 +16,11 @@ export const Header = () => {
     const client = useApolloClient();
     const cartItems = useReactiveVar(setCartItems);
 
-    console.log('CARTITEMS:', cartItems);
+    // console.log('CARTITEMS:', cartItems);
     let total = 0;
     cartItems.forEach((item) => (total += item.quantity));
 
-    console.log('TOTAL', total);
+    // console.log('TOTAL', total);
     const {
         data: { userLoggedIn },
     } = useQuery(USER_LOGGED_IN);
@@ -55,7 +55,7 @@ export const Header = () => {
                         <Typography variant="subtitle1" style={{ marginRight: 10 }}>
                             {userLoggedIn.email}
                         </Typography>
-                        <IconButton style={{ marginRight: 4 }} color="inherit">
+                        <IconButton style={{ marginRight: 4 }} color="inherit" component={Link} to="/cart">
                             <Badge badgeContent={total} color="secondary" showZero>
                                 <ShoppingCartOutlinedIcon />
                             </Badge>

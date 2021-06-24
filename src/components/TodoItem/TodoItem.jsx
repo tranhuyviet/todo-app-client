@@ -63,7 +63,7 @@ export default function TodoItem({ todo }) {
     };
 
     const handleAddToCart = () => {
-        console.log('Add to cart', todo._id);
+        // console.log('Add to cart', todo._id);
         // setCartItems([...cartItems, todo._id]);
         const isCartExist = cartItems.find((item) => item._id === todo._id);
 

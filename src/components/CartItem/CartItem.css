@@ -1,0 +1,22 @@
+.cartItem {
+    border: 1px solid gray;
+    margin-bottom: 10px;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+.active {
+    color: red;
+    text-decoration: line-through;
+}
+
+.quantityContainer {
+    display: flex;
+    align-items: baseline;
+}
+
+.quantity {
+    margin: 0 10px;
+}

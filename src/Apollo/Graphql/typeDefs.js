@@ -4,4 +4,8 @@ export default gql`
     extend type Query {
         isLoggedIn: Boolean!
     }
+
+    extend type ReturnTodos {
+        user: User
+    }
 `;

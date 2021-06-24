@@ -1,17 +1,18 @@
 import { gql } from '@apollo/client';
 
+// CART
+export const ADD_TO_CART = gql`
+    mutation AddToCart($_id: ID!) {
+        addToCart(_id: $_id) @client {
+            _id
+        }
+    }
+`;
+
 // USER
 export const REGISTER = gql`
-    mutation Register(
-        $email: String!
-        $password: String!
-        $confirmPassword: String!
-    ) {
-        register(
-            email: $email
-            password: $password
-            confirmPassword: $confirmPassword
-        ) {
+    mutation Register($email: String!, $password: String!, $confirmPassword: String!) {
+        register(email: $email, password: $password, confirmPassword: $confirmPassword) {
             _id
             email
             token

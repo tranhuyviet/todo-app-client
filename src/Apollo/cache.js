@@ -15,6 +15,11 @@ export const cache = new InMemoryCache({
                         return setUserLoggedIn();
                     },
                 },
+                cartItems: {
+                    read() {
+                        return setCartItems();
+                    },
+                },
                 getTodos: {
                     keyArgs: false,
                     merge(existing, incoming) {
@@ -49,3 +54,5 @@ if (localStorage.getItem('todo-app-token')) {
     initialUserLoggedIn = jwtDecode(localStorage.getItem('todo-app-token'));
 }
 export const setUserLoggedIn = makeVar(initialUserLoggedIn);
+
+export const setCartItems = makeVar([]);

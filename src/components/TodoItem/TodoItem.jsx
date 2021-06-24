@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './TodoItem.css';
-import { useMutation } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import { DELETE_TODO, UPDATE_TODO } from '../../Apollo/Graphql/mutations';
 // import { GET_TODOS } from '../../Apollo/Graphql/queries';
+import { setCartItems } from '../../Apollo/cache';
 
 export default function TodoItem({ todo }) {
     const [isEdit, setIsEdit] = useState(false);
     const [title, setTitle] = useState('');
     const [status, setStatus] = useState(false);
+    const cartItems = useReactiveVar(setCartItems);
+
     const [deleteTodo] = useMutation(DELETE_TODO, {
         onError(error) {
             console.log('DELETE TOTO ERROR: ', error);
@@ -59,6 +62,24 @@ export default function TodoItem({ todo }) {
         setIsEdit(false);
     };
 
+    const handleAddToCart = () => {
+        console.log('Add to cart', todo._id);
+        // setCartItems([...cartItems, todo._id]);
+        const isCartExist = cartItems.find((item) => item._id === todo._id);
+
+        // if cart exist -> add more quantity
+        if (isCartExist) {
+            isCartExist.quantity += 1;
+            setCartItems([...cartItems]);
+        } else {
+            const cartItemNew = {
+                _id: todo._id,
+                quantity: 1,
+            };
+            setCartItems([...cartItems, cartItemNew]);
+        }
+    };
+
     useEffect(() => {
         setTitle(todo.title);
         setStatus(todo.status);
@@ -70,9 +91,7 @@ export default function TodoItem({ todo }) {
                 {todo.title}
             </p> */}
             <input
-                className={`${todo.status === true ? 'done' : ''} ${
-                    isEdit === false ? 'notEdit' : 'edit'
-                } titleText`}
+                className={`${todo.status === true ? 'done' : ''} ${isEdit === false ? 'notEdit' : 'edit'} titleText`}
                 value={title}
                 disabled={!isEdit}
                 onChange={(e) => setTitle(e.target.value)}
@@ -86,23 +105,18 @@ export default function TodoItem({ todo }) {
             />
             <div>
                 {isEdit && (
-                    <button
-                        style={{ marginRight: 10 }}
-                        onClick={() => handleEditTodo(todo._id)}
-                    >
+                    <button style={{ marginRight: 10 }} onClick={() => handleEditTodo(todo._id)}>
                         Save
                     </button>
                 )}
 
-                <button
-                    style={{ marginRight: 10 }}
-                    onClick={() => setIsEdit((prev) => !prev)}
-                >
+                <button style={{ marginRight: 10 }} onClick={() => setIsEdit((prev) => !prev)}>
                     {isEdit ? 'Cancel' : 'Edit'}
                 </button>
-                <button onClick={() => handleDeleteTodo(todo._id)}>
+                <button style={{ marginRight: 10 }} onClick={() => handleDeleteTodo(todo._id)}>
                     Delete
                 </button>
+                <button onClick={handleAddToCart}>Add to Cart</button>
             </div>
         </div>
     );

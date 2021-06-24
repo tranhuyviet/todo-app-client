@@ -26,12 +26,12 @@ const LoginForm = () => {
             console.log(errors);
         },
         onCompleted(result) {
-            console.log('RESULT LOGIN', result);
+            // console.log('RESULT LOGIN', result);
             // if login success
             if (result.login) {
+                setUserLoggedIn(jwtDecode(result.login.token));
                 localStorage.setItem('todo-app-token', result.login.token);
                 // isLoggedInVar(true);
-                setUserLoggedIn(jwtDecode(result.login.token));
             }
         },
     });

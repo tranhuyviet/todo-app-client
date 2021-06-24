@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { FRAGMENT_TODO, FRAGMEMT_RETURN_USER } from './fragments';
 
 export const GET_TODOS = gql`
     query GetTodos($offset: Int, $limit: Int) {
@@ -6,22 +7,23 @@ export const GET_TODOS = gql`
             total
             hasMore
             todos {
-                _id
-                title
-                status
+                # _id
+                # title
+                # status
+                ...FragmentTodo
             }
         }
     }
+    ${FRAGMENT_TODO}
 `;
 
 export const GET_TODO = gql`
     query GetTodo($_id: ID!) {
         getTodo(_id: $_id) {
-            _id
-            title
-            status
+            ...FragmentTodo
         }
     }
+    ${FRAGMENT_TODO}
 `;
 
 // export const IS_LOGGED_IN = gql`
@@ -33,11 +35,13 @@ export const GET_TODO = gql`
 export const LOGGIN = gql`
     query Login($email: String!, $password: String) {
         login(email: $email, password: $password) {
-            _id
-            email
-            token
+            # _id
+            # email
+            # token
+            ...FragmentReturnUser
         }
     }
+    ${FRAGMEMT_RETURN_USER}
 `;
 
 export const USER_LOGGED_IN = gql`
